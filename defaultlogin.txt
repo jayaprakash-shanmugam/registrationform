@@ -1,0 +1,238 @@
+App.js
+------
+
+import './App.css';
+import Loginform from './components/loginform/loginform';
+import RegisterForm from './components/registerform/registerform';
+import Indexpage from './components/homepage';
+import { useState } from 'react';
+import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
+import { Router } from 'express';
+// function Des()
+// {
+//   const [currentform,setCurrentform]=useState('login');
+//   const toggle =(formName)=>
+//   {
+//     setCurrentform(formName);
+//   }
+//        if(currentform==='login') {
+//           return <Loginform onFormSwitch={toggle}/>;
+//         }
+//         else if (currentform==='register') {
+//           return  (<RegisterForm onFormSwitch={toggle}/>);
+//         } else {
+//           return (<Indexpage onFormSwitch={toggle}/>);
+//         }
+  
+// }
+
+
+// function App() {
+//   const [currentform,setCurrentform]=useState('login');
+//   const toggle =(formName)=>
+//   {
+//     setCurrentform(formName);
+//   }
+//   if(currentform==='login') 
+//   {
+//     return(<div className="App">{ <Loginform onFormSwitch={toggle}/>}</div>);
+//   }
+//   else if(currentform==='register') 
+//   {
+//     return(<div className="App">{ <RegisterForm onFormSwitch={toggle}/>}</div>);
+//   }
+//   else if(currentform==='index') 
+//   {
+//     return(<div className="App">{ <Indexpage onFormSwitch={toggle}/>}</div>);
+//   }
+
+  // return (
+  //   <div className="App">
+  //     {
+  //        //currentform==='login'?<Loginform onFormSwitch={toggle}/>:<Indexpage onFormSwitch={toggle}/>
+  //       //if(currentform==='login') {
+  //       //   return <Loginform onFormSwitch={toggle}/>;
+  //       // }
+  //       // else if (currentform==='register') {
+  //       //   <RegisterForm onFormSwitch={toggle}/>
+  //       // } else {
+  //       //   <Indexpage onFormSwitch={toggle}/>
+  //       // }
+  //     }
+  //   </div>
+  // );
+//}
+
+
+function App()
+{
+  return(
+    <div className='App'>
+      <Router>
+        <Routes>
+          <Route path='/' element={<Loginform/>}/>
+          <Route path='/' element={<RegisterForm/>}/>
+          <Route path='/' element={<Indexpage/>}/>
+        </Routes>
+      </Router>
+    </div>
+  )
+}
+
+export default App;
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+index.jsx
+---------
+
+
+import { useState } from "react";
+
+const Indexpage=(props)=>
+{
+        const [index,setIndex]=useState('');
+        const buttonClick=(event)=>
+        {
+            event.preventDefault();
+            
+            const fullname=document.getElementById('index');
+            console.log(fullname.value);
+        }
+
+    return(
+        <div id="body">
+        <form onSubmit={buttonClick} id="form"> 
+            <div>
+                <label Htmlfor="index"></label>
+                <input type="text" id='index' placeholder="index page" name="index" size='40px' required></input>
+            </div>
+            
+            <div>
+                <button type='submit'>click</button>
+            </div>
+        </form>
+        </div>
+
+    )
+}
+export default Indexpage;
+
+---------------------------------------------------------------
+loginform.jsx
+------------
+
+import React, { useState } from "react";
+import './loginform.css';
+const Loginform=(props)=>
+{
+    const [name,setName]=useState('');
+    const [pass,setPass]=useState('');
+    const ButtonSubmit=(event)=>
+    {
+        event.preventDefault(); 
+        // if (a != "" && b != "")
+        // {
+        //     return(()=>props.onFormSwitch('index'));
+        // }
+        
+        const name=document.getElementById('name');
+        console.log(name.value);
+        const password=document.getElementById('password');
+        console.log(password.value);
+    }
+    const Nav=()=>
+    {
+        props.onFormSwitch('index');
+    }
+   
+ 
+return(
+    <form onSubmit={ButtonSubmit} id="form">
+        <div className="total-div">
+            <div className="total-div">
+                <label Htmlfor="uname"></label>
+                <input value={name} onChange={(event)=>setName(event.target.value)} placeholder='Name' type="text" name="uname" id="name" required />
+            </div>
+            <div className="total-div">
+                <label Htmlfor ="password"></label>
+                <input value={pass} onChange={(event)=>setPass(event.target.value)} placeholder='Password' type="password" name="password" id="password" required /><br/>
+            </div>
+            <div className="total-div1">
+                <button type="submit"  onClick={()=>props.onFormSwitch('index')}>login</button>
+            </div>
+            <button className ='hi' onClick={()=>props.onFormSwitch('register')}>New user?Register</button>
+        </div>
+    </form>
+)
+}
+export default Loginform;
+
+-----------------------------------------------------------------
+registerform.jsx
+-----------------
+
+import { useState } from "react";
+
+const RegisterForm=(props)=>
+{
+        const [fullname,setFullname]=useState('');
+        const [email,setEmail]=useState('');
+        const[password,setPassword]=useState('');
+        const buttonClick=(event)=>
+        {
+            event.preventDefault();
+            let x = document.forms["form"]["fullname"].value;
+            if (x === "") 
+            {
+                alert("Fullname must be filled out");
+                return;
+            }
+            let y = document.forms["form"]["mail"].value;
+            if (y === "") 
+            {
+                alert("Email must be filled out");
+                return;
+            }
+            let z = document.forms["form"]["password"].value;
+            if (z === "") 
+            {
+                alert("Password must be filled out");
+                return;
+            }
+            const fullname=document.getElementById('fullname');
+            console.log(fullname.value);
+            const email=document.getElementById('mail');
+            console.log(email.value);
+            const password=document.getElementById('password');
+            console.log(password.value);
+        }
+
+    return(
+        <div id="body">
+        <form onSubmit={buttonClick} id="form" > 
+            <div>
+                <label Htmlfor="fullname"></label>
+                <input type="text" id='fullname' placeholder="Full Name" name="fullname" size='40px'></input>
+            </div>
+            <div>
+                <label Htmlfor="mail"></label>
+                <input type="mail" id='mail' name="mail" placeholder="Email" size='40px'></input>
+            </div>
+            <div>
+                <label Htmlfor="password"></label>
+                <input type="password" id='password' name="password" placeholder='Password' size='40px'></input>
+            </div>
+            <div>
+                <button type='submit'>signup</button>
+            </div>
+            <div>
+                <button onClick={()=>props.onFormSwitch('login')} type="submit">Already signed?Login</button>
+            </div>
+        </form>
+        </div>
+    )
+}
+export default RegisterForm;
